@@ -20,5 +20,15 @@ body {
 button {
   border: none;
   border-radius: 3px;
-  cursor: pointer;
+  /* cursor: pointer; */
+  
+}
+
+button:disabled{
+  filter: brightness(50%);
+
+}
+
+.error{
+  border: 1px solid red;
 }
