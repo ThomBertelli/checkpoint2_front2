@@ -20,12 +20,13 @@ body {
 button {
   border: none;
   border-radius: 3px;
-  /* cursor: pointer; */
+  cursor: pointer;
   
 }
 
 button:disabled{
   filter: brightness(50%);
+  cursor:not-allowed;
 
 }
 
