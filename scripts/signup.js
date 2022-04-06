@@ -3,9 +3,6 @@ let buttonCreateReference = document.querySelector('#buttonCreate')
 
 let inputsReference = document.querySelectorAll('input')
 
-
-
-
 let userData = {
 
     firstName: " ",
@@ -15,7 +12,16 @@ let userData = {
     
 }
 
-let error = 5
+let userDataErrors = {
+    firstName: true,
+    lastName: true,
+    email: true,
+    password: true,
+    confirmPassword: true
+}
+
+let errorConfirmIgualPassword = true
+
 let pass = null
 let confirmPass = null
 
@@ -26,17 +32,12 @@ for(let input of inputsReference){
         
         if(input.checkValidity()){
             input.classList.remove('error')
-            error--
-            if(input.id == "name"){
-                userData.firstName = input.value
-            }else if(input.id == "surname"){
-                userData.lastName = input.value
-            }else if(input.id == "email"){
-                userData.email = input.value
-        }}
-        else{
+            userData[input.id] = input.value
+            userDataErrors[input.id] = false
+
+        }else{
+            userDataErrors[input.id] = true
             input.classList.add('error')
-            error++
         }      
 
             if (input.id == "password"){
@@ -46,21 +47,25 @@ for(let input of inputsReference){
                 confirmPass = input.value.trim()
                     if(pass != confirmPass){
                     input.classList.add('error')
-                    error++
+                    errorConfirmIgualPassword = true
                         }else{
                             input.classList.remove('error')
-                            error--
+                            errorConfirmIgualPassword = false
                             userData.password = pass
                         }
             }
-            if(error <= 0){
+            if(userDataErrors.firstName === false &&
+                userDataErrors.lastName === false &&
+                userDataErrors.email === false &&
+                userDataErrors.password === false &&
+                userDataErrors.confirmPassword === false &&
+                errorConfirmIgualPassword === false){
                 buttonCreateReference.disabled = false
             }else{
                 buttonCreateReference.disabled = true
             }
+            console.log(userDataErrors)
             console.log(userData)
-            console.log(error)
-            console.log(pass)
             console.log(confirmPass)
         }
 
