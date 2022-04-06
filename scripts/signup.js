@@ -9,18 +9,20 @@ let userData = {
     lastName: " ",
     email: " ",
     password: " "
-    
+
 }
 
 let userDataErrors = {
+
     firstName: true,
     lastName: true,
     email: true,
     password: true,
     confirmPassword: true
+    
 }
 
-let errorConfirmIgualPassword = true
+let errorConfirmEqualPassword = true
 
 let pass = null
 let confirmPass = null
@@ -47,10 +49,10 @@ for(let input of inputsReference){
                 confirmPass = input.value.trim()
                     if(pass != confirmPass){
                     input.classList.add('error')
-                    errorConfirmIgualPassword = true
+                    errorConfirmEqualPassword = true
                         }else{
                             input.classList.remove('error')
-                            errorConfirmIgualPassword = false
+                            errorConfirmEqualPassword = false
                             userData.password = pass
                         }
             }
@@ -59,7 +61,7 @@ for(let input of inputsReference){
                 userDataErrors.email === false &&
                 userDataErrors.password === false &&
                 userDataErrors.confirmPassword === false &&
-                errorConfirmIgualPassword === false){
+                errorConfirmEqualPassword === false){
                 buttonCreateReference.disabled = false
             }else{
                 buttonCreateReference.disabled = true
@@ -68,12 +70,8 @@ for(let input of inputsReference){
             console.log(userData)
             console.log(confirmPass)
         }
-
-    )
-    
-        
+    )       
 }
-
 
 buttonCreateReference.addEventListener('click', event => {
 
