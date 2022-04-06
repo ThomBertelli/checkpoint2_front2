@@ -19,7 +19,7 @@ let userDataErrors = {
     email: true,
     password: true,
     confirmPassword: true
-    
+
 }
 
 let errorConfirmEqualPassword = true
@@ -107,7 +107,6 @@ buttonCreateReference.addEventListener('click', event => {
 
                 }
             )
-
         }
     )
 })
