@@ -29,48 +29,48 @@ let confirmPass = null
 
 for(let input of inputsReference){    
 
-    input.addEventListener('change', event =>{
-        
-        
-        if(input.checkValidity()){
+    input.addEventListener('change', event => {
+
+
+        if (input.checkValidity()) {
             input.classList.remove('error')
             userData[input.id] = input.value
             userDataErrors[input.id] = false
 
-        }else{
+        } else {
             userDataErrors[input.id] = true
             input.classList.add('error')
-        }      
-
-            if (input.id == "password"){
-                pass = input.value.trim()
-            }
-            if (input.id == "confirmPassword"){
-                confirmPass = input.value.trim()
-                    if(pass != confirmPass){
-                    input.classList.add('error')
-                    errorConfirmEqualPassword = true
-                        }else{
-                            input.classList.remove('error')
-                            errorConfirmEqualPassword = false
-                            userData.password = pass
-                        }
-            }
-            if(userDataErrors.firstName === false &&
-                userDataErrors.lastName === false &&
-                userDataErrors.email === false &&
-                userDataErrors.password === false &&
-                userDataErrors.confirmPassword === false &&
-                errorConfirmEqualPassword === false){
-                buttonCreateReference.disabled = false
-            }else{
-                buttonCreateReference.disabled = true
-            }
-            console.log(userDataErrors)
-            console.log(userData)
-            console.log(confirmPass)
         }
-    )       
+
+        if (input.id == "password") {
+            pass = input.value.trim()
+        }
+        if (input.id == "confirmPassword") {
+            confirmPass = input.value.trim()
+            if (pass != confirmPass) {
+                input.classList.add('error')
+                errorConfirmEqualPassword = true
+            } else {
+                input.classList.remove('error')
+                errorConfirmEqualPassword = false
+                userData.password = pass
+            }
+        }
+        if (userDataErrors.firstName === false &&
+            userDataErrors.lastName === false &&
+            userDataErrors.email === false &&
+            userDataErrors.password === false &&
+            userDataErrors.confirmPassword === false &&
+            errorConfirmEqualPassword === false) {
+            buttonCreateReference.disabled = false
+        } else {
+            buttonCreateReference.disabled = true
+        }
+        console.log(userDataErrors)
+        console.log(userData)
+        console.log(confirmPass)
+    }
+    )
 }
 
 buttonCreateReference.addEventListener('click', event => {
