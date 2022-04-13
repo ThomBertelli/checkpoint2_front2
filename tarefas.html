@@ -42,14 +42,14 @@
 
   <form class="nova-tarefa">
     <div class="not-done "></div>
-    <input id="novaTarea" type="text" placeholder="Nova tarefa">
-    <button type="submit">
+    <input id="newTask" type="text" placeholder="Nova tarefa">
+    <button id="addNewTask" type="submit">
       <img src="./assets/plus.png" alt="Adicionar uma nova tarefa">
     </button>
   </form>
 
 
-  <ul class="tarefas-pendentes">
+  <ul id="notCompleteTaks" class="tarefas-pendentes">
     <div id="skeleton">
       <li class="tarefa">
         <div class="not-done"></div>
@@ -77,7 +77,7 @@
   </ul>
 
   <h2 class="titulo-terminadas">Tarefas terminadas</h2>
-  <ul class="tarefas-terminadas">
+  <ul id="completeTasks" class="tarefas-terminadas">
 
   </ul>
   <script src="./scripts/tarefas.js"></script>
