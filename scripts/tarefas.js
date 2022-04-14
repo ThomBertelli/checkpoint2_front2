@@ -1,17 +1,20 @@
+let showCompleteTasksReference = document.getElementById('completeTasks')
 
-window.onload = () =>{
+let showNotCompleteTasksReference = document.getElementById('notCompleteTaks')
+
+
+window.onload = () => {
 
     let requestHeaders = {
 
         'Content-Type': 'application/json',
         authorization: localStorage.getItem('token')
-        
+
     }
 
     let requestConfiguration = {
 
         headers: requestHeaders,
-        
 
     }
 
@@ -35,50 +38,9 @@ window.onload = () =>{
 
     )
 
+    setTimeout(() => {
 
-
-
-    setTimeout(() =>{        
-
-        let requestHeaders = {
-
-            'Content-Type': 'application/json',
-            authorization: localStorage.getItem('token')
-            
-        }
-    
-        let requestConfiguration = {
-    
-            headers: requestHeaders,
-            
-    
-        }
-        let skeletonReference = document.getElementById('skeleton')
-
-        fetch('https://ctd-todo-api.herokuapp.com/v1/tasks', requestConfiguration).then(
-    
-            response => {
-    
-                if(response.ok){
-                    response.json().then(
-    
-                        tasks => {
-
-                            skeletonReference.style.display = 'none'
-
-                            taksRender(tasks)
-        
-                            
-        
-                        }
-        
-                    )
-
-                }
-
-            }
-    
-        )
+        getAllTasks()
 
     }, 2000)
 
@@ -96,20 +58,20 @@ buttonCreateNewTaskReference.addEventListener('click', (event) => {
         description: inputNewTaskReference.value,
         completed: false
     }
-    
-    
+
+
     let requestHeaders = {
 
         'Content-Type': 'application/json',
         authorization: localStorage.getItem('token')
-        
+
     }
 
     let requestConfiguration = {
-        
+
         method: 'POST',
         headers: requestHeaders,
-        body: JSON.stringify(taskBody)         
+        body: JSON.stringify(taskBody)
 
     }
 
@@ -117,15 +79,11 @@ buttonCreateNewTaskReference.addEventListener('click', (event) => {
 
         response => {
 
-            response.json().then(
+            if (response.ok) {
 
-                data => {
+                getAllTasks()
 
-                    console.log(data)
-
-                }
-
-            )
+            }
 
         }
 
@@ -136,51 +94,154 @@ buttonCreateNewTaskReference.addEventListener('click', (event) => {
 })
 
 
-function taksRender (tasks){
-    let showCompleteTasksReference = document.getElementById('completeTasks')
+function taksRender(tasks) {
 
-    let showNotCompleteTasksReference = document.getElementById('notCompleteTaks')
+    showCompleteTasksReference.innerHTML = ''
+    showNotCompleteTasksReference.innerHTML = ''
 
-    
-    for(let task of tasks){
+    for (let task of tasks) {
 
         const formatDate = new Date(task.createdAt).toLocaleDateString(
             'pt-BR',
-    
+
             {
                 day: '2-digit',
-                month:'2-digit',
+                month: '2-digit',
                 year: 'numeric'
             }
-    
+
         )
 
-        if(task.completed){
+        if (task.completed) {
             showCompleteTasksReference.innerHTML += `
                                     <li class="tarefa">
-                                        <div></div>
+                                        <div class="not-done" onclick="taskCompleted(${task.id},false)"></div>
                                         <div class="descricao">
                                             <p class="nome">${task.description}</p>
-                                            <p class="timestamp"> ${formatDate} </p>
+                                            <p class="timestamp">Criada em: ${formatDate} </p>
+                                            
                                         </div>
+                                        <img class="lixeira"  src="https://img.icons8.com/color/344/trash--v1.png" alt="" onclick="deleteTask(${task.id})">
                                     </li>
                                     `
-        }else{
+        } else {
             showNotCompleteTasksReference.innerHTML += `
                                     <li class="tarefa">
-                                        <div class="not-done"></div>
+                                        <div class="not-done" onclick="taskCompleted(${task.id},true)"></div>
                                         <div class="descricao">
                                             <p class="nome">${task.description}</p>
-                                            <p class="timestamp"> ${formatDate} </p>
+                                            <p class="timestamp"> Criada em: ${formatDate} </p>
                                         </div>
                                     </li>
                                     `
         }
     }
+
+
 }
 
-function taskCompleted(){
-    
+
+function getAllTasks() {
+
+    let requestHeaders = {
+
+        'Content-Type': 'application/json',
+        authorization: localStorage.getItem('token')
+
+    }
+
+    let requestConfiguration = {
+
+        headers: requestHeaders,
+
+    }
+
+
+    fetch('https://ctd-todo-api.herokuapp.com/v1/tasks', requestConfiguration).then(
+
+        response => {
+
+            if (response.ok) {
+
+
+                response.json().then(
+
+                    data => {
+
+                        taksRender(data)
+
+                    }
+
+                )
+
+            }
+
+        }
+
+    )
+}
+
+function taskCompleted(id, completed) {
+
+    let requestHeaders = {
+
+        'Content-Type': 'application/json',
+        authorization: localStorage.getItem('token')
+
+    }
+
+    let requestConfiguration = {
+
+        method: 'PUT',
+        headers: requestHeaders,
+        body: JSON.stringify({ completed: completed })
+
+    }
+
+    fetch(`https://ctd-todo-api.herokuapp.com/v1/tasks/${id}`, requestConfiguration).then(
+
+        response => {
+
+            if (response.ok) {
+
+                getAllTasks()
+            }
+
+        }
+
+    )
+
+}
+
+function deleteTask(id) {
+
+    let requestHeaders = {
+
+        'Content-Type': 'application/json',
+        authorization: localStorage.getItem('token')
+
+    }
+
+    let requestConfiguration = {
+
+        method: 'DELETE',
+        headers: requestHeaders,
+
+
+    }
+
+    fetch(`https://ctd-todo-api.herokuapp.com/v1/tasks/${id}`, requestConfiguration).then(
+
+        response => {
+
+            if (response.ok) {
+
+                getAllTasks()
+            }
+
+        }
+
+    )
 
 }
 

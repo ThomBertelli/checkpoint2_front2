@@ -242,3 +242,16 @@ a {
   0%{ opacity: 0.5;}
   100%{ opacity: 0.8;}
 }
+
+.lixeira {
+  width: 25px;
+  height: 25px;
+  margin-left: 20px;
+  transition: 1s;
+  cursor: pointer;
+}
+
+.lixeira:hover{
+  transform: scale(1.2);
+    
+}
