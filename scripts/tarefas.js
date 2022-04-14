@@ -2,15 +2,14 @@ let showCompleteTasksReference = document.getElementById('completeTasks')
 
 let showNotCompleteTasksReference = document.getElementById('notCompleteTaks')
 
+let requestHeaders = {
+
+    'Content-Type': 'application/json',
+    authorization: localStorage.getItem('token')
+
+}
 
 window.onload = () => {
-
-    let requestHeaders = {
-
-        'Content-Type': 'application/json',
-        authorization: localStorage.getItem('token')
-
-    }
 
     let requestConfiguration = {
 
@@ -57,14 +56,6 @@ buttonCreateNewTaskReference.addEventListener('click', (event) => {
     let taskBody = {
         description: inputNewTaskReference.value,
         completed: false
-    }
-
-
-    let requestHeaders = {
-
-        'Content-Type': 'application/json',
-        authorization: localStorage.getItem('token')
-
     }
 
     let requestConfiguration = {
@@ -121,7 +112,7 @@ function taksRender(tasks) {
                                             <p class="timestamp">Criada em: ${formatDate} </p>
                                             
                                         </div>
-                                        <img class="lixeira"  src="https://img.icons8.com/color/344/trash--v1.png" alt="" onclick="deleteTask(${task.id})">
+                                        <img class="lixeira vibrate-3"  src="https://img.icons8.com/color/344/trash--v1.png" alt="" onclick="deleteTask(${task.id})">
                                     </li>
                                     `
         } else {
@@ -142,13 +133,6 @@ function taksRender(tasks) {
 
 
 function getAllTasks() {
-
-    let requestHeaders = {
-
-        'Content-Type': 'application/json',
-        authorization: localStorage.getItem('token')
-
-    }
 
     let requestConfiguration = {
 
@@ -183,13 +167,6 @@ function getAllTasks() {
 
 function taskCompleted(id, completed) {
 
-    let requestHeaders = {
-
-        'Content-Type': 'application/json',
-        authorization: localStorage.getItem('token')
-
-    }
-
     let requestConfiguration = {
 
         method: 'PUT',
@@ -214,13 +191,6 @@ function taskCompleted(id, completed) {
 }
 
 function deleteTask(id) {
-
-    let requestHeaders = {
-
-        'Content-Type': 'application/json',
-        authorization: localStorage.getItem('token')
-
-    }
 
     let requestConfiguration = {
 
