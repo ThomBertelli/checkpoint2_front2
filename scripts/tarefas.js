@@ -11,6 +11,26 @@ let requestHeaders = {
 
 window.onload = () => {
 
+    let token = localStorage.getItem('token')
+
+    if (token === null || token === 'null' || token === '' || token === ' ' || token === undefined) {
+        window.location.href = "./index.html"
+
+    }else {
+
+        showUserName()
+
+        setTimeout(() => {
+
+            getAllTasks()
+
+        }, 2000)
+
+    }
+
+}
+
+function showUserName() {
     let requestConfiguration = {
 
         headers: requestHeaders,
@@ -36,12 +56,6 @@ window.onload = () => {
         }
 
     )
-
-    setTimeout(() => {
-
-        getAllTasks()
-
-    }, 2000)
 
 }
 
@@ -128,7 +142,6 @@ function taksRender(tasks) {
         }
     }
 
-
 }
 
 
@@ -214,6 +227,32 @@ function deleteTask(id) {
     )
 
 }
+
+function logOut() {
+
+    Swal.fire({
+
+        icon:'question',
+        title: 'Deseja realmente sair?',
+        showDenyButton: true,
+        confirmButtonText: 'Sim',
+        denyButtonText: `Não`,
+        
+    }).then((result) => {
+
+        if (result.isConfirmed) {
+
+            localStorage.setItem('token', '')
+            window.location.href = "./index.html"
+
+        }
+
+    })
+
+}
+
+
+
 
 
 

@@ -1,3 +1,4 @@
+import { mostrarSpinner, ocultarSpinner } from './loader.js'
 
 let buttonCreateReference = document.querySelector('#buttonCreate')
 
@@ -29,7 +30,7 @@ let confirmPass = null
 
 for(let input of inputsReference){    
 
-    input.addEventListener('change', event => {
+    input.addEventListener('change', () => {
 
 
         if (input.checkValidity()) {
@@ -77,7 +78,6 @@ buttonCreateReference.addEventListener('click', event => {
 
     event.preventDefault()
 
-    
     let headersRequest = {
         
         'Content-Type': 'application/json'
@@ -96,17 +96,51 @@ buttonCreateReference.addEventListener('click', event => {
     fetch('https://ctd-todo-api.herokuapp.com/v1/users', requestConfig).then(
 
         response => {
+            if(response.ok){
 
-            response.json().then(
+                mostrarSpinner()
 
-                data => {
+                response.json().then(
 
-                    console.log(data)
-                    localStorage.setItem('token', data.jwt)
-                    window.location.href = "index.html"
+                    data => {
 
-                }
-            )
+                        setTimeout(()=>{
+
+                            Swal.fire({
+
+                                title:'Usuário cadastrado com sucesso!',
+                                
+                            }).then((result) => {
+                                
+                                if (result.isConfirmed) {
+
+                                    localStorage.setItem('token', data.jwt)
+                                    window.location.href = "index.html"
+                                }
+                            })
+
+                        },4000)
+                    }
+                )
+            }if(response.status === 400){
+
+                mostrarSpinner()
+
+                setTimeout(()=>{
+
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Oops...',
+                        text: 'Email/Usuário já cadastrado!',
+                    })
+
+                    ocultarSpinner()
+
+                },4000)
+            }
+            
         }
     )
 })
+
+

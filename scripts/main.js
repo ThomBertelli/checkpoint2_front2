@@ -1,3 +1,5 @@
+import { mostrarSpinner, ocultarSpinner } from "./loader.js"
+
 let buttonReferene = document.querySelector('button')
 
 let inputEmailreference = document.querySelector('#inputEmail')
@@ -5,15 +7,16 @@ let inputEmailreference = document.querySelector('#inputEmail')
 let inputPasswordReferece = document.querySelector('#inputPassword')
 
 let errorEmail = true;
+
 let errorPassword = true;
 
-buttonReferene.addEventListener('click',function(event){
+buttonReferene.addEventListener('click', function (event) {
 
     event.preventDefault()
 
     let credentials = {
 
-        email: inputEmailreference.value ,
+        email: inputEmailreference.value,
         password: inputPasswordReferece.value
 
     }
@@ -36,16 +39,59 @@ buttonReferene.addEventListener('click',function(event){
 
         response => {
 
-            response.json().then(
+            if (response.ok) {
+                mostrarSpinner()
+                response.json().then(
 
-                data => {
+                    data => {
+                        setTimeout(() => {
 
-                    localStorage.setItem('token', data.jwt)
-                    window.location.href = "./tarefas.html"
+                            localStorage.setItem('token', data.jwt)
 
-                }
+                            window.location.href = "./tarefas.html"
+                        }, 4000)
 
-            )
+                    }
+
+                )
+            } if (response.status === 404) {
+                mostrarSpinner()
+
+
+                setTimeout(() => {
+                    Swal.fire({
+                        icon:'error',
+                        title: 'Usuário não encontrado',
+                        text: 'Deseja fazer seu cadastro?',
+                        showDenyButton: true,
+                        confirmButtonText: 'Sim',
+                        denyButtonText: `Não`,
+                    }).then((result) => {
+                        /* Read more about isConfirmed, isDenied below */
+                        if (result.isConfirmed) {
+                            window.location.href = "./signup.html"
+
+                        }
+                    })
+                    ocultarSpinner()
+
+                }, 4000)
+
+
+
+            } if (response.status === 400) {
+                mostrarSpinner()
+                setTimeout(() => {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Oops...',
+                        text: 'Senha Incorreta !',
+                    })
+                    ocultarSpinner()
+                }, 4000)
+
+
+            }
 
         }
 
@@ -53,34 +99,45 @@ buttonReferene.addEventListener('click',function(event){
 
 })
 
-inputEmailreference.addEventListener('keyup',function(event){
+inputEmailreference.addEventListener('keyup', function (event) {
 
-    if(!inputEmailreference.checkValidity()){
+    if (!inputEmailreference.checkValidity()) {
+
         inputEmailreference.classList.add('error')
         errorEmail = true
-    }else{
+
+    } else {
+
         inputEmailreference.classList.remove('error')
         errorEmail = false
     }
     verifyErrors()
 })
 
-inputPasswordReferece.addEventListener('keyup',function(){
-    if(inputPasswordReferece.value.length < 6){
+inputPasswordReferece.addEventListener('keyup', function () {
+
+    if (inputPasswordReferece.value.length < 6) {
+
         inputPasswordReferece.classList.add('error')
         errorPassword = true
-    }else{
+
+    } else {
+
         inputPasswordReferece.classList.remove('error')
         errorPassword = false
     }
     verifyErrors()
 })
 
-function verifyErrors (){
-    if (!errorEmail && !errorPassword){
+function verifyErrors() {
+
+    if (!errorEmail && !errorPassword) {
+
         buttonReferene.disabled = false
-    }else{
+
+    } else {
+
         buttonReferene.disabled = true
-    } 
+    }
 
 }
