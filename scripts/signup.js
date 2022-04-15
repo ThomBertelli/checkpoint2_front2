@@ -67,9 +67,7 @@ for(let input of inputsReference){
         } else {
             buttonCreateReference.disabled = true
         }
-        console.log(userDataErrors)
-        console.log(userData)
-        console.log(confirmPass)
+        
     }
     )
 }
