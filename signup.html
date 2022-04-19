@@ -40,10 +40,12 @@
       <label>
         Senha:
         <input id="password" type="password" required minlength="6">
+        <small class="erroSenha" id="erroSenha">A senha deve possuir no mínimo 6 dígitos, uma letra maiúscula, uma minúscula e um número</small>
       </label>
       <label>
         Repetir senha:
         <input id="confirmPassword" type="password" required minlength="6">
+        <small class="erroSenha" id="erroConfirmaSenha">A confirmação não é igual a senha.</small>
       </label>
 
       <button id="buttonCreate" disabled>Criar conta</button>

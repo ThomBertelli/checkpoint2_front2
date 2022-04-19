@@ -21,15 +21,22 @@ button {
   border: none;
   border-radius: 3px;
   cursor: pointer;
-  
+
 }
 
-button:disabled{
+button:disabled {
   filter: brightness(50%);
-  cursor:not-allowed;
+  cursor: not-allowed;
 
 }
 
-.error{
+.error {
   border: 1px solid red;
+}
+
+.erroSenha {
+  display: none;
+  color: red;
+  overflow-wrap: break-word;
+  width: 240px;
 }

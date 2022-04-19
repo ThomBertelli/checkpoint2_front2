@@ -57,7 +57,6 @@ buttonReferene.addEventListener('click', function (event) {
             } if (response.status === 404) {
                 mostrarSpinner()
 
-
                 setTimeout(() => {
                     Swal.fire({
                         icon:'error',
@@ -77,19 +76,20 @@ buttonReferene.addEventListener('click', function (event) {
 
                 }, 4000)
 
-
-
             } if (response.status === 400) {
+
                 mostrarSpinner()
+
                 setTimeout(() => {
                     Swal.fire({
                         icon: 'error',
                         title: 'Oops...',
                         text: 'Senha Incorreta !',
                     })
-                    ocultarSpinner()
-                }, 4000)
 
+                    ocultarSpinner()
+                    
+                }, 4000)
 
             }
 

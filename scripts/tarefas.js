@@ -31,6 +31,7 @@ window.onload = () => {
 }
 
 function showUserName() {
+    
     let requestConfiguration = {
 
         headers: requestHeaders,
@@ -119,7 +120,8 @@ function taksRender(tasks) {
 
         if (task.completed) {
             showCompleteTasksReference.innerHTML += `
-                                    <li class="tarefa">
+                                    <li class="tarefa" data-aos="fade-up"
+                                    data-aos-anchor-placement="top-bottom">
                                         <div class="not-done" onclick="taskCompleted(${task.id},false)"></div>
                                         <div class="descricao">
                                             <p class="nome">${task.description}</p>
@@ -131,7 +133,8 @@ function taksRender(tasks) {
                                     `
         } else {
             showNotCompleteTasksReference.innerHTML += `
-                                    <li class="tarefa">
+                                    <li class="tarefa" data-aos="fade-up"
+                                    data-aos-anchor-placement="top-bottom">
                                         <div class="not-done" onclick="taskCompleted(${task.id},true)"></div>
                                         <div class="descricao">
                                             <p class="nome">${task.description}</p>
@@ -159,7 +162,6 @@ function getAllTasks() {
         response => {
 
             if (response.ok) {
-
 
                 response.json().then(
 
@@ -210,7 +212,6 @@ function deleteTask(id) {
         method: 'DELETE',
         headers: requestHeaders,
 
-
     }
 
     fetch(`https://ctd-todo-api.herokuapp.com/v1/tasks/${id}`, requestConfiguration).then(
@@ -251,7 +252,10 @@ function logOut() {
 
 }
 
-
+AOS.init({
+    delay: 100, 
+    duration: 1000,
+})
 
 
 

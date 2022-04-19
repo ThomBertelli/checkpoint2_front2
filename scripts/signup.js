@@ -32,7 +32,6 @@ for(let input of inputsReference){
 
     input.addEventListener('change', () => {
 
-
         if (input.checkValidity()) {
             input.classList.remove('error')
             userData[input.id] = input.value
@@ -45,16 +44,27 @@ for(let input of inputsReference){
 
         if (input.id == "password") {
             pass = input.value.trim()
+            if(pass.match("^(((?=.*[a-z])(?=.*[A-Z]))|((?=.*[a-z])(?=.*[0-9]))|((?=.*[A-Z])(?=.*[0-9])))(?=.{6,})")){
+                userDataErrors.password = false
+                input.classList.remove('error')
+                document.getElementById('erroSenha').style.display = 'none'
+            }else{
+                userDataErrors.password = true
+                input.classList.add('error')
+                document.getElementById('erroSenha').style.display = 'flex'
+            }
         }
         if (input.id == "confirmPassword") {
             confirmPass = input.value.trim()
             if (pass != confirmPass) {
                 input.classList.add('error')
                 errorConfirmEqualPassword = true
+                document.getElementById('erroConfirmaSenha').style.display = 'flex'
             } else {
                 input.classList.remove('error')
                 errorConfirmEqualPassword = false
                 userData.password = pass
+                document.getElementById('erroConfirmaSenha').style.display = 'none'
             }
         }
         if (userDataErrors.firstName === false &&

@@ -50,7 +50,6 @@ function ocultarSpinner() {
         goToLoginReference.style.display = "block"
     }
 
-    
     // Selecionamos o corpo para poder remover o spinner do HTML.
     const body = document.querySelector("body");
 

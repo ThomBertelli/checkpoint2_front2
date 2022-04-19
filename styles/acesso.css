@@ -1,6 +1,6 @@
 @import url('./common.css');
 
-body{
+body {
   display: flex;
 }
 
@@ -21,6 +21,7 @@ form {
   box-shadow: 0 5px 5px lightgrey;
   padding: 1em 2.5em;
   box-sizing: border-box;
+  
 }
 
 form:after {
@@ -68,24 +69,29 @@ button {
   color: grey;
   font-size: 2em;
 }
-.ingressar{
+
+.ingressar {
   text-align: center;
 }
-.left{
-  width: 50%;  
+
+.left {
+  width: 50%;
   background-color: white;
   text-align: center;
   display: flex;
   align-items: center;
   justify-content: center;
 }
-.left img{
-  width:60%;
+
+.left img {
+  width: 60%;
 }
-.right{
+
+.right {
   width: 50%;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  
 }
